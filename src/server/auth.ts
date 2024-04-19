@@ -1,5 +1,5 @@
 "use server";
-import { app } from "@/lib/firebase";
+import { app } from "@/server/firebase";
 
 export const registerAccount = async <T>(prevState: T, data: FormData) => {
   try {

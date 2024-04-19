@@ -1,4 +1,4 @@
-import { app } from "@/lib/firebase";
+import { app } from "@/server/firebase";
 import { getFirestore } from "firebase-admin/firestore";
 import { Col } from "@/types/enums";
 export const GET = async () => {
@@ -16,6 +16,6 @@ export const GET = async () => {
 
     return Response.json({ data: getPortofolio.data() });
   } catch (error) {
-    return Response.json({ data: {}, message: "something went wrong" });
+    return Response.json({ data: {}, message: "something went wrong", error });
   }
 };
