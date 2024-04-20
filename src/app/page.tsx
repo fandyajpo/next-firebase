@@ -1,5 +1,6 @@
 import Screen from "@/components/layout/screen";
 import UserCard from "@/components/card/user";
+import Test from "@/components/test";
 const Landing = () => {
   return (
     <main>

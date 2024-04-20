@@ -19,7 +19,7 @@ const Screen = (props: IScreen) => {
           className={`object-cover absolute ${props.imageStyle}`}
         />
       ) : null}
-      <div className="md:max-w-2xl lg:max-w-4xl duration-500 xl:max-w-7xl w-full flex flex-col items-stretch grow relative flex-shrink-0 gap-x-4">
+      <div className="md:max-w-2xl p-4 lg:p-0 lg:max-w-4xl duration-500 xl:max-w-7xl w-full flex flex-col items-stretch grow relative flex-shrink-0 gap-x-4">
         {props.children}
       </div>
     </section>

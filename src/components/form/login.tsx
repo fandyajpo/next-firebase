@@ -1,21 +1,25 @@
 "use client";
-import { useForm } from "react-hook-form";
-
-type FormValues = {
-  text: string;
-};
-
+import { TUser } from "@/types/types";
+import Image from "next/image";
+import Link from "next/link";
+import { Controller, useForm } from "react-hook-form";
+import Button from "@/components/layout/button";
+import { useLogin } from "@/client/query/user";
 function LoginForm() {
-  const { handleSubmit, control } = useForm<FormValues>();
+  const { handleSubmit, control } = useForm<TUser>();
+  const { mutate: login } = useLogin();
+
+  const onSubmit = handleSubmit((data) => login(data));
 
   return (
     <section className="bg-white">
       <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
         <section className="relative flex h-32 items-end bg-gray-900 lg:col-span-5 lg:h-full xl:col-span-6">
-          <img
-            alt=""
+          <Image
+            fill
+            alt="BACKGROUND"
             src="https://images.unsplash.com/photo-1617195737496-bc30194e3a19?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
-            className="absolute inset-0 h-full w-full object-cover opacity-80"
+            className="absolute inset-0 h-full w-full object-cover"
           />
 
           <div className="hidden lg:relative lg:block lg:p-12">
@@ -76,56 +80,27 @@ function LoginForm() {
               </p>
             </div>
 
-            <form
-              onSubmit={handleSubmit((data) => console.log(data))}
-              className="mt-8 grid grid-cols-6 gap-6"
-            >
+            <form onSubmit={onSubmit} className="mt-8 grid grid-cols-6 gap-6">
               <div className="col-span-6 sm:col-span-3">
                 <label
                   htmlFor="FirstName"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  First Name
+                  Email
                 </label>
 
-                <input
-                  type="text"
-                  id="FirstName"
-                  name="first_name"
-                  className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-                />
-              </div>
-
-              <div className="col-span-6 sm:col-span-3">
-                <label
-                  htmlFor="LastName"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Last Name
-                </label>
-
-                <input
-                  type="text"
-                  id="LastName"
-                  name="last_name"
-                  className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-                />
-              </div>
-
-              <div className="col-span-6">
-                <label
-                  htmlFor="Email"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  {" "}
-                  Email{" "}
-                </label>
-
-                <input
-                  type="email"
-                  id="Email"
+                <Controller
+                  control={control}
                   name="email"
-                  className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+                  rules={{ required: true }}
+                  render={({ field }) => (
+                    <input
+                      {...field}
+                      type="text"
+                      placeholder="Email"
+                      className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+                    />
+                  )}
                 />
               </div>
 
@@ -137,34 +112,25 @@ function LoginForm() {
                   {" "}
                   Password{" "}
                 </label>
-
-                <input
-                  type="password"
-                  id="Password"
+                <Controller
+                  control={control}
                   name="password"
-                  className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-                />
-              </div>
-
-              <div className="col-span-6 sm:col-span-3">
-                <label
-                  htmlFor="PasswordConfirmation"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Password Confirmation
-                </label>
-
-                <input
-                  type="password"
-                  id="PasswordConfirmation"
-                  name="password_confirmation"
-                  className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+                  rules={{ required: true }}
+                  render={({ field }) => (
+                    <input
+                      {...field}
+                      type="password"
+                      placeholder="Password"
+                      className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+                    />
+                  )}
                 />
               </div>
 
               <div className="col-span-6">
                 <label htmlFor="MarketingAccept" className="flex gap-4">
                   <input
+                    disabled
                     type="checkbox"
                     id="MarketingAccept"
                     name="marketing_accept"
@@ -194,17 +160,18 @@ function LoginForm() {
               </div>
 
               <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
-                <button className="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500">
-                  Create an account
-                </button>
+                <Button
+                  title="Login"
+                  type="submit"
+                  className="inline-block shrink-0 rounded border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500"
+                />
 
-                <p className="mt-4 text-sm text-gray-500 sm:mt-0">
-                  Already have an account?
-                  <a href="#" className="text-gray-700 underline">
-                    Log in
-                  </a>
-                  .
-                </p>
+                <Link
+                  href={"/register"}
+                  className="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500"
+                >
+                  Create an account
+                </Link>
               </div>
             </form>
           </div>

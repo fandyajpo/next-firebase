@@ -1,27 +1,26 @@
 "use client";
 import { useForm, Controller } from "react-hook-form";
 import Button from "@/components/layout/button";
-import { FormResponse, TUser } from "@/types/types";
-import { registerAccount } from "@/server/auth";
-import { useFormState } from "react-dom";
+import { RevampUser } from "@/types/types";
+import Image from "next/image";
+import Link from "next/link";
+import { useLogin, useRegister } from "@/client/query/user";
 function RegisterForm() {
-  const { handleSubmit, control } = useForm<TUser>();
+  const { handleSubmit, control } = useForm<RevampUser>();
 
-  // const [formState, formAction] = useFormState<FormResponse>(registerAccount, {
-  //   message: "",
-  //   codeName: "",
-  // });
+  const { mutate: register } = useRegister();
 
-  // const onSubmit = handleSubmit((data: TUser) => auth.register(data));
+  const onSubmit = handleSubmit((data: RevampUser) => register(data));
 
   return (
     <section className="bg-white">
       <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
         <section className="relative flex h-32 items-end bg-gray-900 lg:col-span-5 lg:h-full xl:col-span-6">
-          <img
-            alt=""
+          <Image
+            fill
+            alt="BACKGROUND"
             src="https://images.unsplash.com/photo-1617195737496-bc30194e3a19?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
-            className="absolute inset-0 h-full w-full object-cover opacity-80"
+            className="absolute inset-0 h-full w-full object-cover"
           />
 
           <div className="hidden lg:relative lg:block lg:p-12">
@@ -82,23 +81,24 @@ function RegisterForm() {
               </p>
             </div>
 
-            <form className="mt-8 grid grid-cols-6 gap-6">
-              {/* <form action={null} className="mt-8 grid grid-cols-6 gap-6"> */}
+            <form onSubmit={onSubmit} className="mt-8 grid grid-cols-6 gap-6">
               <div className="col-span-6 sm:col-span-3">
                 <label
                   htmlFor="FirstName"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Username
+                  Email
                 </label>
 
                 <Controller
                   control={control}
-                  name="username"
+                  name="email"
+                  rules={{ required: true }}
                   render={({ field }) => (
                     <input
                       {...field}
                       type="text"
+                      placeholder="Email"
                       className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                     />
                   )}
@@ -115,10 +115,12 @@ function RegisterForm() {
                 <Controller
                   control={control}
                   name="nim"
+                  rules={{ required: true }}
                   render={({ field }) => (
                     <input
                       {...field}
                       type="text"
+                      placeholder="Nim"
                       className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                     />
                   )}
@@ -133,14 +135,15 @@ function RegisterForm() {
                   {" "}
                   Password{" "}
                 </label>
-
                 <Controller
                   control={control}
                   name="password"
+                  rules={{ required: true }}
                   render={({ field }) => (
                     <input
                       {...field}
                       type="password"
+                      placeholder="Password"
                       className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                     />
                   )}
@@ -158,10 +161,12 @@ function RegisterForm() {
                 <Controller
                   control={control}
                   name="confirmPassword"
+                  rules={{ required: true }}
                   render={({ field }) => (
                     <input
                       {...field}
                       type="password"
+                      placeholder="Confirm password"
                       className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                     />
                   )}
@@ -185,16 +190,16 @@ function RegisterForm() {
 
               <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
                 <Button
-                  title="Login"
+                  title="Create an Account"
                   type="submit"
                   className="inline-block shrink-0 rounded border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500"
                 />
 
                 <p className="mt-4 text-sm text-gray-500 sm:mt-0">
-                  Already have an account?
-                  <a href="#" className="text-gray-700 underline">
+                  Already have an account?{" "}
+                  <Link href="/login" className="text-gray-700 underline">
                     Log in
-                  </a>
+                  </Link>
                   .
                 </p>
               </div>

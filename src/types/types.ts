@@ -1,3 +1,4 @@
+import { AxiosResponse, InternalAxiosRequestConfig } from "axios";
 import { StaticImageData } from "next/image";
 
 interface IAudit {
@@ -22,8 +23,6 @@ export interface IScreen {
   children: React.ReactNode;
 }
 
-export type IRole = "STUDENT" | "ADMIN";
-
 export interface ISocialMedia {
   linkedin: string;
   instagram: string;
@@ -31,19 +30,20 @@ export interface ISocialMedia {
 }
 
 export interface IPortofolio {
+  id: string;
   image: string;
   title: string;
   description: string;
   link: string;
 }
 
-export type FormResponse = {
+export type TFormResponse = {
   message?: string;
   codeName?: string;
 };
 
 export type TUser = {
-  confirmPassword: string;
+  id: string;
   password: string;
   photoUrl: string;
   username: string;
@@ -53,5 +53,27 @@ export type TUser = {
   bio: string;
   tag: string[];
   socialMedia: ISocialMedia;
-  portofolio: IPortofolio[];
+  portofolio: IPortofolio[] | IPortofolio["id"][];
 } & IAudit;
+
+export type TTag = {
+  id: string;
+  name: string;
+} & IAudit;
+
+export type TRole = {
+  id: string;
+  name: string;
+} & IAudit;
+
+export type RevampUser = TUser & { confirmPassword: string };
+export type RevampPortofolio = Partial<IPortofolio>;
+
+export type TFetcher<T> = {
+  status: boolean;
+  data?: T | null;
+  statusText?: AxiosResponse<any, any> | string;
+  code?: number | AxiosResponse<any, any>;
+  error?: Error | undefined | object | string | unknown;
+  config?: InternalAxiosRequestConfig<any> | undefined;
+};
