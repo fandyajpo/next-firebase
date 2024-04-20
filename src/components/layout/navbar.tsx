@@ -1,4 +1,5 @@
 "use client";
+import { NOT_FOUND_SEGMENT } from "@/lib/variable/next.not.found";
 import { useSelectedLayoutSegment } from "next/navigation";
 import Screen from "./screen";
 import Link from "next/link";
@@ -6,22 +7,21 @@ const Navbar = () => {
   const segment = useSelectedLayoutSegment();
   return (
     <>
-      {!["(auth)"].includes(segment ?? "") ? (
+      {!["(auth)", "(backend)", NOT_FOUND_SEGMENT].includes(segment ?? "") ? (
         <header className="bg-gray-50">
           <Screen>
             <div className="py-4">
-              <div className="sm:flex sm:items-center sm:justify-between">
-                <div className="text-center sm:text-left">
-                  <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">
+              <div className="flex items-center justify-between">
+                <div className="sm:text-left">
+                  <h1 className="text-2xl font-bold text-gray-900">
                     InstikiDev Community
                   </h1>
-
-                  <p className="mt-1.5 text-sm text-gray-500">
-                    {"Let's write a new blog post! 🎉"}
+                  <p className="mt-1 text-sm text-gray-500">
+                    {"Get in touch with us! 🎉"}
                   </p>
                 </div>
 
-                <div className="mt-4 flex flex-col gap-4 sm:mt-0 sm:flex-row sm:items-center">
+                <div className="flex gap-4 sm:items-center">
                   <Link
                     href={"/register"}
                     className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-gray-200 bg-white px-5 py-3 text-gray-500 transition hover:text-gray-700 focus:outline-none focus:ring"

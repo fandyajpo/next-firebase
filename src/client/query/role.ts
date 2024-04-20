@@ -6,7 +6,6 @@ import {
   getFirestore,
   setDoc,
   updateDoc,
-  deleteField,
 } from "firebase/firestore";
 import { TRole } from "@/types/types";
 import { ECol, EQKey } from "@/types/enums";

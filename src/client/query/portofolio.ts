@@ -9,7 +9,9 @@ import {
   query,
   QueryConstraint,
   limit,
+  getDoc,
 } from "firebase/firestore";
+import { noValueCheck } from "@/lib/listFunc";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { app } from "@/client/firebase";
 import { ECol, EQKey } from "@/types/enums";
@@ -27,6 +29,22 @@ export const usePortofolio = (...queryConstraints: QueryConstraint[]) => {
     return { data };
   };
   return useQuery({
+    queryKey,
+    queryFn,
+  });
+};
+
+export const usePortofolioById = (id: string) => {
+  const queryFn = () => {
+    const firestore = getFirestore(app);
+    const firecol = collection(firestore, ECol.Portofolio);
+    const firedoc = doc(firecol, id ?? "");
+    return getDoc(firedoc);
+  };
+  const queryKey = [EQKey.Portofolio, id];
+
+  return useQuery({
+    enabled: noValueCheck(id),
     queryKey,
     queryFn,
   });

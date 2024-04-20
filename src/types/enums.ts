@@ -11,3 +11,8 @@ export enum EQKey {
   Tag = "Tag",
   User = "User",
 }
+
+export enum EPermission {
+  ADMINISTRATOR = 1,
+  MEMBER = 0,
+}

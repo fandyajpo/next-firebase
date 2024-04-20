@@ -3,6 +3,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import TQuery from "@/lib/tQuery";
 import Navbar from "@/components/layout/navbar";
+import Sidebar from "@/components/layout/sidebar";
 const inter = Poppins({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -22,7 +23,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Navbar />
-        <TQuery>{children}</TQuery>
+        <TQuery>
+          <Sidebar>{children}</Sidebar>
+        </TQuery>
       </body>
     </html>
   );

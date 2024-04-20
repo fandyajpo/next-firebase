@@ -1,5 +1,7 @@
 const UserCard = () => {
-  return <div className="w-full h-64 bg-black aspect-video"></div>;
+  return (
+    <div className="w-full h-full bg-black aspect-square lg:aspect-video"></div>
+  );
 };
 
 export default UserCard;

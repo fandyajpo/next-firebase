@@ -1,6 +1,7 @@
 import { AxiosResponse, InternalAxiosRequestConfig } from "axios";
 import { StaticImageData } from "next/image";
 
+export type TFormMethod = "UPDATE" | "INSERT";
 interface IAudit {
   createdAt: string;
   createdBy: string;
@@ -76,4 +77,15 @@ export type TFetcher<T> = {
   code?: number | AxiosResponse<any, any>;
   error?: Error | undefined | object | string | unknown;
   config?: InternalAxiosRequestConfig<any> | undefined;
+};
+
+export type TNavigation = {
+  name: string;
+  route: string;
+  granted: string[];
+};
+
+export type TServerPageProps<P, S> = {
+  params?: P;
+  searchParams?: S;
 };
