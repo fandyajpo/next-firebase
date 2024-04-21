@@ -1,7 +1,7 @@
 import { ECol } from "@/types/enums";
 import { fetcher } from "@/lib/fetcher";
 import { useMutation } from "@tanstack/react-query";
-import { RevampUser, TUser } from "@/types/types";
+import { RevampUser, TLogin, TUser } from "@/types/types";
 
 // FIREBASE
 import { app } from "@/client/firebase";
@@ -13,9 +13,10 @@ import {
   getIdTokenResult,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
+  IdTokenResult,
 } from "firebase/auth";
 
-const getToken = async (payload: TUser) => {
+const getToken = async (payload: TLogin) => {
   try {
     const auth = getAuth(app);
     const user = await signInWithEmailAndPassword(
@@ -31,10 +32,10 @@ const getToken = async (payload: TUser) => {
 };
 
 export const useLogin = () => {
-  const mutationFn = async (payload: TUser) => {
+  const mutationFn = async (payload: TLogin) => {
     const token = await getToken(payload);
-
-    return fetcher("/auth", {
+    return fetcher("auth", {
+      method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
@@ -57,9 +58,7 @@ export const useRegister = () => {
         "Confirm password doesnt match with password",
         { ...payload }
       );
-
     const auth = getAuth(app);
-
     const register = await createUserWithEmailAndPassword(
       auth,
       payload?.email,
@@ -80,16 +79,22 @@ export const useRegister = () => {
       createdAt: new Date().toISOString(),
     });
   };
-
   return useMutation({
     mutationFn,
-    onSuccess: (data: void, variables: TUser, context: unknown) =>
-      console.log("Success"),
+    onSuccess: () => console.log("Success"),
     onError: (error: Error, variables: TUser, context: unknown) =>
       console.log(error, variables, context),
   });
 };
 
-export const useDisableAccount = () => {};
+export const useDeleteAccount = () => {
+  const mutationFn = async (payload: TUser) => {};
+
+  return useMutation({
+    mutationFn,
+    onSuccess: () => console.log("Success"),
+    onError: (error: Error) => console.log(error),
+  });
+};
 
 export const useCurrentUser = () => {};

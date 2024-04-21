@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import TQuery from "@/lib/tQuery";
+import TQuery from "@/client/tQuery";
 import Navbar from "@/components/layout/navbar";
 import Sidebar from "@/components/layout/sidebar";
 const inter = Poppins({

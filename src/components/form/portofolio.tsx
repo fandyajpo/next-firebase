@@ -1,16 +1,16 @@
 "use client";
 
 import { documentById } from "@/lib/listFunc";
-import { IPortofolio, TFormMethod, TServerPageProps } from "@/types/types";
-import { useForm } from "react-hook-form";
+import { type SubmitHandler, useForm } from "react-hook-form";
+import type { IPortofolio, TFormMethod, TServerPageProps } from "@/types/types";
 import {
   TextInput,
   SelectInput,
   AsyncSelectInput,
 } from "@/components/architect/input";
 import {
-  useInsertPortofolio,
   usePortofolioById,
+  useInsertPortofolio,
 } from "@/client/query/portofolio";
 
 interface Props extends TServerPageProps<{ id: string }, {}> {
@@ -23,35 +23,33 @@ const PortofolioForm = (props: Props) => {
   const { mutate: insert } = useInsertPortofolio();
   const { data } = usePortofolioById(props.params?.id ?? "");
 
-  const onSubmit = handleSubmit((data: IPortofolio) => {
+  const onSubmit: SubmitHandler<IPortofolio> = (data: IPortofolio) => {
     console.log(data);
-  });
+  };
 
   return (
     <div>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <TextInput
-          onChange={(e) => console.log(e)}
           control={control}
           name="description"
           label="Description"
           placeholder="Input description"
         />
         <SelectInput
-          onChange={(e) => console.log(e)}
           options={[{ label: "csa", value: "sa" }]}
           label="Title"
           control={control}
           name="title"
         />
         <AsyncSelectInput
-          // onChange={(e) => console.log(e)}
-          // defaultOptions={[{ label: "csa", value: "sa" }]}
+          defaultOptions={[{ label: "csa", value: "sa" }]}
           label="Title"
           control={control}
           name="id"
           // loadOptions={(input) => {}}
         />
+        <pre>{JSON.stringify(watch(), null, 2)}</pre>
         <button type="submit">Submit</button>
       </form>
 

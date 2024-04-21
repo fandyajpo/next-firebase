@@ -1,15 +1,16 @@
 "use client";
-import { TUser } from "@/types/types";
+import { TLogin, TUser } from "@/types/types";
 import Image from "next/image";
 import Link from "next/link";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import Button from "@/components/layout/button";
 import { useLogin } from "@/client/query/user";
+
 function LoginForm() {
-  const { handleSubmit, control } = useForm<TUser>();
+  const { handleSubmit, control } = useForm<TLogin>();
   const { mutate: login } = useLogin();
 
-  const onSubmit = handleSubmit((data) => login(data));
+  const onSubmit: SubmitHandler<TLogin> = (data: TLogin) => login(data);
 
   return (
     <section className="bg-white">
@@ -80,7 +81,10 @@ function LoginForm() {
               </p>
             </div>
 
-            <form onSubmit={onSubmit} className="mt-8 grid grid-cols-6 gap-6">
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="mt-8 grid grid-cols-6 gap-6"
+            >
               <div className="col-span-6 sm:col-span-3">
                 <label
                   htmlFor="FirstName"

@@ -1,15 +1,12 @@
 import { TNavigation } from "@/types/types";
 
-const handleAccess = () => {};
-
-const handleMenu = () => {};
-
 export const navigations: TNavigation[] = [
-  { name: "Profile", route: "/bo/profile", granted: [] },
-  { name: "Portofolio", route: "/bo/portofolio", granted: [] },
-  { name: "Role", route: "/bo/role", granted: [] },
-  { name: "Tag", route: "/bo/tag", granted: [] },
-  { name: "User", route: "/bo/user", granted: [""] },
+  { name: "Profile", route: "/bo/profile", granted: [], type: "ROUTER" },
+  { name: "Portofolio", route: "/bo/portofolio", granted: [], type: "ROUTER" },
+  { name: "Role", route: "/bo/role", granted: [], type: "ROUTER" },
+  { name: "Tag", route: "/bo/tag", granted: [], type: "ROUTER" },
+  { name: "User", route: "/bo/user", granted: [""], type: "ROUTER" },
+  { name: "Explorer", route: "/", granted: [""], type: "LINK" },
 ];
 
 export const documentById = (id: string) => {
@@ -18,4 +15,10 @@ export const documentById = (id: string) => {
 
 export const noValueCheck = (value: string) => {
   return value != "" || value != null;
+};
+
+export const handleUsername = (name: string) => {
+  const symbol = ["/"];
+
+  return symbol.includes(name);
 };

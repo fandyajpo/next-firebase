@@ -1,5 +1,8 @@
+import TopNav from "@/components/layout/topnav";
 const Role = () => {
-  return <p></p>;
+  return (
+    <TopNav withAddNewButton title="Role" description="Role are listed here" />
+  );
 };
 
 export default Role;

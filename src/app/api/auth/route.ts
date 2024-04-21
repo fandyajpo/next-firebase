@@ -1,23 +1,67 @@
 import { app } from "@/server/firebase";
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { auth } from "firebase-admin";
-export const GET = async (req: NextRequest) => {
+import { DecodedIdToken } from "firebase-admin/auth";
+import { cookies } from "next/headers";
+import { getSession } from "@/server/iron-session";
+export const POST = async (req: NextRequest) => {
   try {
-    console.log("HITT");
-    const token = req.headers.get("") as string;
+    const authorization = req.headers.get("authorization");
+    const session = await getSession(cookies());
 
+    if (!authorization)
+      return NextResponse.json({
+        status: false,
+        message: "Header - [authorization] is required*",
+      });
+
+    const token = authorization.replace("Bearer ", "");
     const authCheck = auth(app());
 
-    const verifyToken = await authCheck.verifyIdToken(token);
+    const verifyToken: DecodedIdToken = await authCheck.verifyIdToken(
+      token,
+      true
+    );
+
+    if (!verifyToken)
+      return NextResponse.json({
+        status: false,
+        message: "Auth - [token] is not valid*",
+      });
 
     console.log(verifyToken);
 
-    return Response.json({
+    session.data = verifyToken;
+    await session.save();
+    return NextResponse.json({
       status: true,
-      message: verifyToken,
+      message: "Auth - [status] success",
     });
   } catch (error) {
-    return Response.json({
+    return NextResponse.json({
+      error,
+      status: false,
+      message: "Something went wrong",
+    });
+  }
+};
+
+export const GET = async (req: NextRequest) => {
+  try {
+    const authorization = req.headers.get("authorization");
+    if (!authorization)
+      return NextResponse.json({
+        status: false,
+        message: "Header - [authorization] is required*",
+      });
+    const session = await getSession(cookies());
+    return NextResponse.json({
+      data: session?.data,
+      status: true,
+      message: "User profile",
+    });
+  } catch (error) {
+    return NextResponse.json({
       error,
       status: false,
       message: "Something went wrong",

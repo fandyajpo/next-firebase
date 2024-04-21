@@ -1,5 +1,6 @@
 import { AxiosResponse, InternalAxiosRequestConfig } from "axios";
 import { StaticImageData } from "next/image";
+import { EPermissionField } from "./enums";
 
 export type TFormMethod = "UPDATE" | "INSERT";
 interface IAudit {
@@ -43,6 +44,10 @@ export type TFormResponse = {
   codeName?: string;
 };
 
+export type TUserPermission = {
+  permission: Array<keyof typeof EPermissionField>;
+};
+
 export type TUser = {
   id: string;
   password: string;
@@ -55,7 +60,8 @@ export type TUser = {
   tag: string[];
   socialMedia: ISocialMedia;
   portofolio: IPortofolio[] | IPortofolio["id"][];
-} & IAudit;
+} & IAudit &
+  TUserPermission;
 
 export type TTag = {
   id: string;
@@ -83,9 +89,13 @@ export type TNavigation = {
   name: string;
   route: string;
   granted: string[];
+  type: TNavigationType;
 };
+export type TNavigationType = "LINK" | "ROUTER";
 
 export type TServerPageProps<P, S> = {
   params?: P;
   searchParams?: S;
 };
+
+export type TLogin = Pick<TUser, "email" | "password">;

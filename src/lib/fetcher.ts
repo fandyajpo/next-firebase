@@ -1,9 +1,9 @@
 import { TFetcher } from "@/types/types";
 import axios, { AxiosError, AxiosRequestConfig } from "axios";
-export const fetcher = async (
+export const fetcher = async <T>(
   url: string,
   r: AxiosRequestConfig
-): Promise<TFetcher<any>> => {
+): Promise<TFetcher<T>> => {
   try {
     const rr = await axios(process.env.NEXT_PUBLIC_API_URL + url, r);
     return {

@@ -1,5 +1,13 @@
+import TopNav from "@/components/layout/topnav";
+
 const Tag = () => {
-  return <p></p>;
+  return (
+    <TopNav
+      withAddNewButton
+      title="Tags"
+      description="Ill show you cool tag you ever seen"
+    />
+  );
 };
 
 export default Tag;

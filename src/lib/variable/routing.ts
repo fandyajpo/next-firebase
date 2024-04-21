@@ -1,0 +1,16 @@
+const routing = [
+  "",
+  " ",
+  "/",
+  "login",
+  "register",
+  "bo",
+  "bo/portofolio",
+  "bo/profile",
+  "bo/role",
+  "bo/tag",
+  "bo/user",
+  "uid",
+  "channel",
+  "tag",
+];

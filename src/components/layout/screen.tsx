@@ -7,7 +7,7 @@ const Screen = (props: IScreen) => {
     <section
       key={props.id}
       id={props.id}
-      className={`flex flex-col items-center ${props?.className ?? ""}`}
+      className={`flex flex-col items-center ${props?.className ?? null}`}
       style={{
         backgroundColor: props.color,
       }}

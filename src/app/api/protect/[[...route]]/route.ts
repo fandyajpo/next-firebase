@@ -9,25 +9,24 @@ const h = new Hono().basePath("/api/protect");
 
 h.get("/", async (c) => {
   try {
-    const store = getFirestore(app());
+    // const store = getFirestore(app());
 
-    const portofolio = store.collection(ECol.Portofolio).doc("cog");
+    // const portofolio = store.collection(ECol.Portofolio).doc("cog");
 
-    const getPortofolio = await portofolio.get();
+    // const getPortofolio = await portofolio.get();
 
-    const isExist = getPortofolio.exists;
+    // const isExist = getPortofolio.exists;
 
-    if (!isExist)
-      return c.json({
-        data: null,
-        message: "Ga ada data",
-      });
+    // if (!isExist)
+    //   return c.json({
+    //     data: null,
+    //     message: "Ga ada data",
+    //   });
 
-    const data = getPortofolio.data();
+    // const data = getPortofolio.data();
 
     return c.json({
-      data,
-      message: "set data succes",
+      message: "Hello hone",
     });
   } catch (error) {
     return c.json(error);

@@ -1,5 +1,10 @@
-import Divider from "@/components/layout/divider";
-import { PSelectInput, PTextInput, PAsyncSelectInput } from "@/types/input";
+import Block from "@/components/layout/block";
+import type {
+  ISelectInput,
+  ITextInput,
+  IAsyncSelectInput,
+  TController,
+} from "@/types/input";
 import { Controller, FieldValues } from "react-hook-form";
 import Select from "react-select";
 import AsyncSelect from "react-select/async";
@@ -9,12 +14,10 @@ import AsyncSelect from "react-select/async";
  * @returns Bergantung pada field yang kamu gunakan
  * @description Jika kamu menambahkan onChange pada saat menggunakan component TextInput, maka nilai field tidak akan berubah didepan, sebaiknya kamu gunakan onChange pada saat ingin langsung mendapatkan nilai keluaran dari input
  */
-export const TextInput = <T extends FieldValues>(props: PTextInput<T>) => {
+export const TextInput = <T extends FieldValues>(props: ITextInput<T>) => {
+  const controller: TController<ITextInput<T>> = props;
   return (
     <Controller
-      key={props.name ?? ""}
-      name={props?.name}
-      rules={props?.rules}
       render={({ field, fieldState }) => (
         <div className="flex flex-col">
           <label htmlFor={props.name ?? ""} className="flex justify-between">
@@ -25,11 +28,10 @@ export const TextInput = <T extends FieldValues>(props: PTextInput<T>) => {
                 : null}
             </span>
           </label>
-          <Divider className="h-1" />
+          <Block className="h-1" />
           <input
             {...field}
             {...props}
-            defaultValue={props?.defaultValue}
             className={`${
               props.className ?? "rounded"
             } disabled:bg-gray-200 disabled:text-gray-500 w-full shadow-sm disabled:cursor-not-allowed disabled:border-gray-300`}
@@ -37,10 +39,7 @@ export const TextInput = <T extends FieldValues>(props: PTextInput<T>) => {
           />
         </div>
       )}
-      control={props.control}
-      disabled={props?.disabled}
-      defaultValue={props?.defaultValue}
-      shouldUnregister={props?.shouldUnregister}
+      {...controller}
     />
   );
 };
@@ -50,12 +49,10 @@ export const TextInput = <T extends FieldValues>(props: PTextInput<T>) => {
  * @returns Bergantung pada field yang kamu gunakan
  * @description Jika kamu menambahkan onChange pada saat menggunakan component TextInput, maka nilai field tidak akan berubah didepan, sebaiknya kamu gunakan onChange pada saat ingin langsung mendapatkan nilai keluaran dari input
  */
-export const SelectInput = <T extends FieldValues>(props: PSelectInput<T>) => {
+export const SelectInput = <T extends FieldValues>(props: ISelectInput<T>) => {
+  const controller: TController<ISelectInput<T>> = props;
   return (
     <Controller
-      key={props?.name ?? ""}
-      name={props?.name}
-      rules={props?.rules}
       render={({ field, fieldState }) => (
         <div className="flex flex-col">
           <label htmlFor={props.name ?? ""} className="flex justify-between">
@@ -66,7 +63,7 @@ export const SelectInput = <T extends FieldValues>(props: PSelectInput<T>) => {
                 : null}
             </span>
           </label>
-          <Divider className="h-1" />
+          <Block className="h-1" />
           <Select
             {...field}
             {...props}
@@ -75,26 +72,20 @@ export const SelectInput = <T extends FieldValues>(props: PSelectInput<T>) => {
             className={`${
               props.className ?? "rounded"
             } disabled:bg-gray-200 disabled:text-gray-500 w-full shadow-sm disabled:cursor-not-allowed disabled:border-gray-300`}
-            defaultValue={props.defaultValue}
           />
         </div>
       )}
-      control={props?.control}
-      disabled={props?.disabled}
-      defaultValue={props?.defaultValue}
-      shouldUnregister={props?.shouldUnregister}
+      {...controller}
     />
   );
 };
 
 export const AsyncSelectInput = <T extends FieldValues>(
-  props: PAsyncSelectInput<T>
+  props: IAsyncSelectInput<T>
 ) => {
+  const controller: TController<IAsyncSelectInput<T>> = props;
   return (
     <Controller
-      key={props?.name ?? ""}
-      name={props?.name}
-      rules={props?.rules}
       render={({ field, fieldState }) => (
         <div className="flex flex-col">
           <label htmlFor={props.name ?? ""} className="flex justify-between">
@@ -105,7 +96,7 @@ export const AsyncSelectInput = <T extends FieldValues>(
                 : null}
             </span>
           </label>
-          <Divider className="h-1" />
+          <Block className="h-1" />
           <AsyncSelect
             {...field}
             {...props}
@@ -114,14 +105,10 @@ export const AsyncSelectInput = <T extends FieldValues>(
             className={`${
               props.className ?? "rounded"
             } disabled:bg-gray-200 disabled:text-gray-500 w-full shadow-sm disabled:cursor-not-allowed disabled:border-gray-300`}
-            defaultValue={props.defaultValue}
           />
         </div>
       )}
-      control={props?.control}
-      disabled={props?.disabled}
-      defaultValue={props?.defaultValue}
-      shouldUnregister={props?.shouldUnregister}
+      {...controller}
     />
   );
 };
