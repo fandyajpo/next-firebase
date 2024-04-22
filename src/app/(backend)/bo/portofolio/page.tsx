@@ -1,6 +1,6 @@
-import TopNav from "@/components/layout/topnav";
-import ProfileGalery from "@/components/backoffice/profile/profileGalery";
-import PortofolioForm from "@/components/form/portofolio";
+import TopNav from "@/own-components/layout/topnav";
+import ProfileGalery from "@/own-components/backoffice/profile/profileGalery";
+import PortofolioForm from "@/own-components/form/portofolio";
 const Portofolio = () => {
   return (
     <>

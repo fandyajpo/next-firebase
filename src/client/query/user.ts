@@ -1,6 +1,6 @@
-import { ECol } from "@/types/enums";
+import { ECol, EQKey } from "@/types/enums";
 import { fetcher } from "@/lib/fetcher";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { RevampUser, TLogin, TUser } from "@/types/types";
 
 // FIREBASE
@@ -15,6 +15,7 @@ import {
   createUserWithEmailAndPassword,
   IdTokenResult,
 } from "firebase/auth";
+import { noValueCheck } from "@/lib/listFunc";
 
 const getToken = async (payload: TLogin) => {
   try {
@@ -88,7 +89,9 @@ export const useRegister = () => {
 };
 
 export const useDeleteAccount = () => {
-  const mutationFn = async (payload: TUser) => {};
+  const mutationFn = async (payload: TUser) => {
+    // DELETE USER QUERY
+  };
 
   return useMutation({
     mutationFn,
@@ -98,3 +101,17 @@ export const useDeleteAccount = () => {
 };
 
 export const useCurrentUser = () => {};
+
+export const useSearchUser = (debounceValue: string) => {
+  const queryFn = () => {
+    // SEARCH QUERY
+  };
+
+  const queryKey = [EQKey.Portofolio, debounceValue];
+
+  return useQuery({
+    enabled: noValueCheck(debounceValue),
+    queryKey,
+    queryFn,
+  });
+};

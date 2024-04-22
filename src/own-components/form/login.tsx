@@ -3,7 +3,7 @@ import { TLogin, TUser } from "@/types/types";
 import Image from "next/image";
 import Link from "next/link";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import Button from "@/components/layout/button";
+import Button from "@/own-components/layout/button";
 import { useLogin } from "@/client/query/user";
 
 function LoginForm() {

@@ -1,4 +1,4 @@
-import Block from "@/components/layout/block";
+import Block from "@/own-components/layout/block";
 const ProfileGalery = () => {
   return (
     <div className="grid grid-cols-3 lg:grid-cols-4 gap-0.5">

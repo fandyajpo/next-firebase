@@ -1,6 +1,6 @@
 "use client";
-import { Title } from "@/components/architect/title";
-import Block from "@/components/layout/block";
+import { Title } from "@/own-components/architect/title";
+import Block from "@/own-components/layout/block";
 
 interface Props {
   title: string;

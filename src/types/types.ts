@@ -37,6 +37,7 @@ export interface IPortofolio {
   title: string;
   description: string;
   link: string;
+  active: boolean;
 }
 
 export type TFormResponse = {

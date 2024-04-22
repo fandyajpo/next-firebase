@@ -1,4 +1,4 @@
-import UserCard from "@/components/card/user";
+import UserCard from "@/own-components/card/user";
 const Landing = () => {
   return (
     <main className="relative">

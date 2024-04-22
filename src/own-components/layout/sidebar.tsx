@@ -5,6 +5,7 @@ import Screen from "./screen";
 import Navigation from "./navigation";
 import { navigations } from "@/lib/listFunc";
 import { ERouteSegment } from "@/types/enums";
+import { ScrollArea } from "@/components/ui/scroll-area";
 interface Props extends PropsWithChildren {}
 
 const Sidebar = ({ children }: Props) => {
@@ -23,6 +24,7 @@ const Sidebar = ({ children }: Props) => {
         </div>
       ) : null}
 
+      {/* <ScrollArea className="w-full"> */}
       {![ERouteSegment.Auth, ERouteSegment.NotFound].includes(
         segment ?? ERouteSegment.Slash
       ) ? (
@@ -30,6 +32,7 @@ const Sidebar = ({ children }: Props) => {
       ) : (
         <>{children}</>
       )}
+      {/* </ScrollArea> */}
     </div>
   );
 };

@@ -1,7 +1,7 @@
-import TopNav from "@/components/layout/topnav";
-import ProfileCard from "@/components/backoffice/profile/profileCard";
-import ProfileGalery from "@/components/backoffice/profile/profileGalery";
-import Block from "@/components/layout/block";
+import TopNav from "@/own-components/layout/topnav";
+import ProfileCard from "@/own-components/backoffice/profile/profileCard";
+import ProfileGalery from "@/own-components/backoffice/profile/profileGalery";
+import Block from "@/own-components/layout/block";
 const Profile = () => {
   return (
     <>

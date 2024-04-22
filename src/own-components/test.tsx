@@ -23,6 +23,7 @@ const Test = () => {
             link: "keroco",
             title: "keroco",
             id: "random",
+            active: false,
           })
         }
       >
@@ -45,6 +46,7 @@ const Test = () => {
             link: "kenokokoko",
             title: "kenokokoko",
             id: "random",
+            active: false,
           })
         }
       >

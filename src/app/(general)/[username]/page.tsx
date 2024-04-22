@@ -1,8 +1,8 @@
 import { TServerPageProps } from "@/types/types";
-import BackNav from "@/components/layout/backNav";
-import ProfileCard from "@/components/backoffice/profile/profileCard";
-import ProfileGalery from "@/components/backoffice/profile/profileGalery";
-import Block from "@/components/layout/block";
+import BackNav from "@/own-components/layout/backNav";
+import ProfileCard from "@/own-components/backoffice/profile/profileCard";
+import ProfileGalery from "@/own-components/backoffice/profile/profileGalery";
+import Block from "@/own-components/layout/block";
 const UniqueIdentifier = (
   props: TServerPageProps<{ username: string }, {}>
 ) => {

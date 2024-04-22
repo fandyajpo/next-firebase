@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import TQuery from "@/client/tQuery";
-import Navbar from "@/components/layout/navbar";
-import Sidebar from "@/components/layout/sidebar";
+import Navbar from "@/own-components/layout/navbar";
+import Sidebar from "@/own-components/layout/sidebar";
 const inter = Poppins({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],

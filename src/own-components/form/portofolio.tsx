@@ -6,12 +6,17 @@ import type { IPortofolio, TFormMethod, TServerPageProps } from "@/types/types";
 import {
   TextInput,
   SelectInput,
+  ToggleInput,
+  CheckboxInput,
+  RadioInput,
   AsyncSelectInput,
-} from "@/components/architect/input";
+  AreaInput,
+} from "@/own-components/architect/input";
 import {
   usePortofolioById,
   useInsertPortofolio,
 } from "@/client/query/portofolio";
+import Block from "@/own-components/layout/block";
 
 interface Props extends TServerPageProps<{ id: string }, {}> {
   method: TFormMethod;
@@ -29,26 +34,68 @@ const PortofolioForm = (props: Props) => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <TextInput
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
+        <Block className="h-2" />
+        <AreaInput
+          control={control}
+          name="description"
+          label="Description"
+          placeholder="Input description"
+        />
+        {/* <TextInput
           control={control}
           name="description"
           label="Description"
           placeholder="Input description"
         />
         <SelectInput
-          options={[{ label: "csa", value: "sa" }]}
+          options={[
+            { label: "csa", value: "sa" },
+            { label: "fafa", value: "fafa" },
+          ]}
           label="Title"
           control={control}
           name="title"
         />
         <AsyncSelectInput
           defaultOptions={[{ label: "csa", value: "sa" }]}
-          label="Title"
+          label="Id"
           control={control}
           name="id"
-          // loadOptions={(input) => {}}
+          loadOptions={(input) =>
+            Promise.resolve([{ label: "cas", value: "cas" }])
+          }
+        /> */}
+
+        {/* <ToggleInput
+          value={"miu"}
+          control={control}
+          name="active"
+          label="Active"
+          placeholder="Input description"
+        /> */}
+        <CheckboxInput
+          control={control}
+          name="active"
+          label="Active"
+          placeholder="Input description"
         />
+
+        <RadioInput
+          value={"hai"}
+          control={control}
+          name="active"
+          label="Tets"
+          placeholder="Input description"
+        />
+        <RadioInput
+          value={"miu"}
+          control={control}
+          name="active"
+          label="Active"
+          placeholder="Input description"
+        />
+
         <pre>{JSON.stringify(watch(), null, 2)}</pre>
         <button type="submit">Submit</button>
       </form>
